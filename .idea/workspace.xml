@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="3d6b9186-4853-40e3-ae97-6f13b7996650" name="Changes" comment="Started on GameModel, hit a contradiction in the instructions and waiting for an answer">
+    <list default="true" id="3d6b9186-4853-40e3-ae97-6f13b7996650" name="Changes" comment="Bulk of game done.  Finishing up some simplification in a few areas and deleting repeated code.  Finishing commenting">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SKerns_P3/GameModel.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SKerns_P3/GameModel.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/SKerns_P3/SillyCardGame.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/SKerns_P3/SillyCardGame.java" afterDir="false" />
@@ -33,17 +33,17 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager">
     <configuration name="SillyCardGame" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <option name="MAIN_CLASS_NAME" value="SKerns_P3.SillyCardGame" />
@@ -72,7 +72,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1661042911651</updated>
-      <workItem from="1661042913958" duration="51685000" />
+      <workItem from="1661042913958" duration="55876000" />
+      <workItem from="1661279630650" duration="11002000" />
     </task>
     <task id="LOCAL-00001" summary="Started on GameModel, hit a contradiction in the instructions and waiting for an answer">
       <created>1661063232721</created>
@@ -88,7 +89,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661063279375</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Bulk of game done.  Finishing up some simplification in a few areas and deleting repeated code.  Finishing commenting">
+      <created>1661141185575</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1661141185575</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -107,6 +115,7 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Started on GameModel, hit a contradiction in the instructions and waiting for an answer" />
-    <option name="LAST_COMMIT_MESSAGE" value="Started on GameModel, hit a contradiction in the instructions and waiting for an answer" />
+    <MESSAGE value="Bulk of game done.  Finishing up some simplification in a few areas and deleting repeated code.  Finishing commenting" />
+    <option name="LAST_COMMIT_MESSAGE" value="Bulk of game done.  Finishing up some simplification in a few areas and deleting repeated code.  Finishing commenting" />
   </component>
 </project>

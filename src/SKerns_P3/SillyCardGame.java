@@ -28,10 +28,9 @@ public class SillyCardGame {
                 System.out.println(game.printPlayerQueue());
                 System.out.println(game.popComparisonCard());
                 System.out.println(game.popPlayerCompCard());
-                System.out.println(game.drawCards());
+                System.out.println(game.turnResult());
                 game.printSizes();
             }
-
         } while (game.playerResult());
         System.out.println(game.gameOutcome());
     }

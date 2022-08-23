@@ -3,118 +3,232 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+//TODO remove all the counts
 /**
  *
  * @author Stewart Kerns
  * @version 1.0
  */
 public class GameModel {
+    //create a final integer to hold the number of cards
+    //TODO should I delete this since the LinkedList will expand?
     private final int NUM_CARDS = 52;
+    //create an ArrayList that will hold the cards initially for shuffling
     private final ArrayList<Integer> cards = new ArrayList<>(NUM_CARDS);
+    //declare an int for the number of players
     private int numPlayers;
-    private String[] playerNames;
+    //declare an ArrayList that will hold each of the player's card queues
     private ArrayList<GenericQueue<Integer>> playerCardQueues;
+    //declare a stack that will hold the discarded cards
     private GenericStack<Integer> discardStack;
+    //declare a stack that will hold the shuffled cards
     private GenericStack<Integer> shuffledStack;
+    //declare an int to hold the value of the card being compared to
     private int compareCard;
-
+    //declare an int to hold the element value of the current player's turn
     private int playerTurn;
+    //declare an int to hold the value of the players card to compare with
     private int playerCompCard;
+    //declare an int to hold the value of the comparison between cards
     private int comparison;
 
 
     private int count = 52;
 
 
-
+    /**
+     * This is a no arg constructor that initializes the various fields as well
+     * as calling the required methods to create the cards, shuffle them, put
+     * them into the shuffled stack, initialize the player queues, and then
+     * distribute the cards to the players in round-robin fashion.
+     */
     public GameModel(){
+        //create the stack of cards using the createCards method
         createCards();
+        //Shuffle the deck of cards using the shuffleDeck method
         shuffleDeck();
-
-        playerCardQueues = new ArrayList<>(numPlayers);
-        discardStack = new GenericStack<>();
-        shuffledStack = new GenericStack<>();
+        //set the number of player to 2
         numPlayers = 2;
+
+        //initialize the ArrayList of player queues to the number of players
+        playerCardQueues = new ArrayList<>(numPlayers);
+        //initialize the discard stack
+        discardStack = new GenericStack<>();
+        //initialize the shuffle stack
+        shuffledStack = new GenericStack<>();
+
+        //TODO initialize all the fields?
+
+        //push the shuffled cards created earlier onto the shuffled stack
         shuffledCardsIntoStack();
+        //initiate the player's queues
         initPlayerQueues();
+        //deal each of the players their cards
         dealPlayersCards();
     }
 
+    /**
+     * This method initiates each of the player's queues depending on how many
+     * players are playing
+     */
     private void initPlayerQueues(){
+        //initiate a queue for each player
         for (int i = 0; i < numPlayers; i++){
             playerCardQueues.add(new GenericQueue<Integer>());
         }
     }
+
+    /**
+     * This method returns a formatted String of the current player's card queue
+     *
+     * @return String hold current player's card holding
+     */
     public String printPlayerQueue(){
+        //create a new StringBuilder object to make the string
         StringBuilder playerQueueString = new StringBuilder();
-//        System.out.println(playerCardQueues.get(playerTurn));
+        //create a new Scanner object to scan through the toString of the queue
         Scanner strScanner = new Scanner(
                 playerCardQueues.get(playerTurn).toString());
+
+        //Scan through the queue string while there are more values
         while (strScanner.hasNext()){
+            //add the next card to the string as well as a | for formatting
             playerQueueString.append("| " + strScanner.next() + " ");
         }
+
+        //add a final | to the end of the string for formatting
         playerQueueString.append("|");
+        //close the scanner object
+        strScanner.close();
+
+        //return the string built by the StringBuilder
         return playerQueueString.toString();
     }
+
+    /**
+     * This method pops a comparison card off of the shuffled stack and onto
+     * the discard stack.  It then returns a String labeling what the card was
+     *
+     * @return a String telling what the value of the card popped was
+     */
     public String popComparisonCard(){
+        //pop a card off the shuffled stack and set compareCard to it
         compareCard = popShuffleCard();
+        //push the popped card value onto the discard stack
         discardStack.push(compareCard);
+
+        //return the value
         return "Discard pile card is: " + compareCard;
     }
 
+    /**
+     * This method returns a String to label what the current player's cards are
+     *
+     * @return String labeling what the current player's cards are
+     */
     public String playerTurnString(){
+        //return the String telling what the current player's cards are
         return "\nPlayer " + (playerTurn + 1) + "'s turn, cards:";
     }
+
+    /**
+     * This method pops a card off of the shuffled stack and pushed onto the
+     * discard stack. The field playerCompCard is then set equal to the value
+     * of the card that was popped.  It returns a String telling what the value
+     * was.
+     *
+     * @return String noting the value of the popped card
+     */
     public String popPlayerCompCard(){
+        //push the dequeued card from the player onto the discard stack
         discardStack.push(playerCardQueues.get(playerTurn).dequeue());
+        //set the playerCompCard equal to the card that was dequeued
         playerCompCard = discardStack.peek();
         count++;
-        return "Your current card is: " + playerCompCard;
 
+        //return a String telling what the player's card played was
+        return "Your current card is: " + playerCompCard;
     }
 
+    /**
+     * This method compares the two fields that hold the comparison card from
+     * the shuffled deck and the comparison card from the user, it then sets
+     * field comparison to the difference
+     */
     private void compareCards(){
 //        int playerCompareCard;
 //        discardStack.push(playerCardQueues.get(playerTurn).dequeue());
 //        playerCompareCard = discardStack.peek();
+
+        //calculate the difference between the cards
         comparison = playerCompCard - compareCard;
     }
-    public String drawCards(){
+
+    /**
+     * This method looks at the comparison of the card that was dealt and the
+     * player's card and then returns a String based on the result of the
+     * outcome
+     *
+     * @return String based on the outcome of the card comparison
+     */
+    public String turnResult(){
+        //run the compareCards method for the comparison field to be set
         compareCards();
+
+        // create a variable holding how many cards will be drawn and set it
+        //to 0 initially
         int cardsToDraw = 0;
-        String retString;
+        //declare a String that will be output
+        String resultString;
+
+        //if the player's card is greater, set resultString, no cards drawn
         if (comparison > 0){
-            retString = "Player " + (playerTurn + 1) + "'s card is larger" +
+            resultString = "Player " + (playerTurn + 1) + "'s card is larger" +
                     ", they don't need to draw another card!";
         }
+
+        //if the player's card is the same, set resultString and draw one card
         else if (comparison == 0) {
-            retString = "Player " + (playerTurn + 1) + "'s card is the " +
+            resultString = "Player " + (playerTurn + 1) + "'s card is the " +
                     "same value. They will draw another card.";
             cardsToDraw = 1;
             count--;
         }
+
+        //if the player's card is smaller, set resultString and draw two cards
         else{
-            retString = "Player " + (playerTurn + 1) + "'s card is lower" +
+            resultString = "Player " + (playerTurn + 1) + "'s card is lower" +
                     ". They will draw two cards.";
             cardsToDraw = 2;
             count--;
             count--;
         }
+
+        //run through the for loop for however many cards need to be drawn
         for (int i = 0; i < cardsToDraw; i++){
 //            if(tieGame()){
 //                return "There are no more cards, the game is a tie.";
 //            }
+            //enqueue a card off the shuffle deck
             playerCardQueues.get(playerTurn).enqueue(popShuffleCard());
         }
-        return retString;
+
+        //return the resultStrin
+        return resultString;
     }
 
-
+    /**
+     * This method when called checks if there was a tie and outputs
+     * correspondingly if so and if not, then it returns which player won
+     *
+     * @return String describing what the outcome of the game was
+     */
     public String gameOutcome(){
-        //if the winner
+        //if the stacks are empty, return that there was a tie
         if (emptyStacks()){
             return "There are no more cards. The game is a tie.";
         }
+        //otherwise, return which player won TODO should I have a +1 method since I use it often?
         return "Player " + (playerTurn + 1) + " is the winner!";
     }
 
